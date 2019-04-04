@@ -14,7 +14,7 @@
 	else{
 		header('location:login.php');
 	}
-	require 'config.php';
+	require 'system/config.php';
 
 	$username = htmlspecialchars($_POST['username']);
 	$password = htmlspecialchars($_POST['password']);
@@ -32,10 +32,10 @@
 			$_SESSION['level'] = $data['level'];
 
 			if ($data['level'] == "admin"){
-				header('location: admin.php');
+				header('location: user/admin.php');
 			}
 			else if ($data['level'] == "kasir"){
-				header('location: kasir.php');
+				header('location: user/kasir.php');
 			}
 		}
 		}

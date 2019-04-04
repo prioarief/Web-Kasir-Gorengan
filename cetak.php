@@ -3,9 +3,9 @@
 
 session_start();
  if (!isset($_SESSION['username'])){
-    header('location: login.php');
+    header('location: ../login.php');
   }
-require 'config.php';
+require 'system/config.php';
 
 $id = $_GET['id'];
 

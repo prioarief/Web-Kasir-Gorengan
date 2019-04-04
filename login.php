@@ -3,15 +3,15 @@
 	
 	if(isset($_SESSION['level'])) {
 		if(($_SESSION['level'] == "admin")){
-			header('location:admin/admin.php');
+			header('location:user/admin.php');
 		}
 		if(($_SESSION['level'] == "kasir")){
-			header('location:kasir.php');
+			header('location:user/kasir.php');
 		}
 	}
 	 
 
-	require 'config.php';
+	require 'system/config.php';
 	
 	
 ?>
