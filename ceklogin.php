@@ -21,8 +21,8 @@
 	$op 	  = $_GET['op'];
 
 	if ($op == "in"){
-		$qlogin = mysqli_query($conn,"SELECT * FROM kasir WHERE username = '$username' 
-				  AND password = '$password'");
+		$qlogin = mysqli_query($conn,"SELECT * FROM kasir WHERE username = '$username' AND 
+		password = '$password'");
 		if (mysqli_num_rows($qlogin) == 1){
 			$data = mysqli_fetch_array($qlogin);
 			$_SESSION['login'] == true;
@@ -44,4 +44,3 @@
 		unset($_SESSION['level']);
 		header('location: login.php');
 	}
-?>

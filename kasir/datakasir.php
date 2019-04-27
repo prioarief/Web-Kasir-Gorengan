@@ -1,14 +1,14 @@
-<?php 
+<?php
 session_start();
 
 if (($_SESSION['level'] == "")) {
     header('location:../login.php');
-}
-else if (($_SESSION['level'] == "kasir")) {
+} else if (($_SESSION['level'] == "kasir")) {
     header('location:../user/kasir.php');
 }
 
 require '../system/config.php';
+
 $query = "SELECT max(id_kasir) as maxID FROM kasir";
 $hasil = mysqli_query($conn, $query);
 $data  = mysqli_fetch_assoc($hasil);
@@ -73,9 +73,9 @@ $newID = $char . sprintf("%2s", $noUrut);
         <!-- DataTables Example -->
         <div class="card mb-3">
             <div class="card-header">
-                <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#tambahkasir">
-                    Tambah kasir
-                </button>
+                <a href="#" data-toggle="modal" data-target="#tambahkasir" title="Tambah Kasir" class="btn btn-dark">
+                    <i class="fas fa-fw fa-plus-square" aria-hidden="true"></i> Tambah Kasir
+                </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -98,7 +98,7 @@ $newID = $char . sprintf("%2s", $noUrut);
                         </tfoot>
                         <tbody>
 
-                            <?php 
+                            <?php
 
                             $query = $conn->query("SELECT * FROM kasir");
 
@@ -107,20 +107,24 @@ $newID = $char . sprintf("%2s", $noUrut);
 
 
 
-                            ?>
+                                ?>
 
-                            <tr>
-                                <td><?= $result['nama']; ?></td>
-                                <td><?= $result['username']; ?></td>
-                                <td><?= $result['level']; ?></td>
-                                <td>
-                                    <a href="hapuskasir.php?id=<?= $result['id_kasir']; ?>" class="btn btn-danger btn-sm" onclick="return confirm ('yakin?');">Hapus kasir</a>
-                                    <a href="ubahkasir.php?id=<?= $result['id_kasir']; ?>" class="btn btn-success btn-sm">Ubah Kasir</a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td><?= $result['nama']; ?></td>
+                                    <td><?= $result['username']; ?></td>
+                                    <td><?= $result['level']; ?></td>
+                                    <td>
+                                        <a href="ubahkasir.php?id=<?= $result['id_kasir']; ?>" class="text-center" title="Edit">
+                                            <i class="fas fa-fw fa-edit" aria-hidden="true"></i>
+                                        </a> |
+                                        <a href="hapuskasir.php?id=<?= $result['id_kasir']; ?>" class="text-center" title="hapus">
+                                            <i class="fas fa-fw fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
 
-                            <?php 
-                            } ?>
+                            <?php
+                        } ?>
                         </tbody>
                     </table>
                 </div>
@@ -178,30 +182,81 @@ $newID = $char . sprintf("%2s", $noUrut);
     </div>
 
     <!-- akhir modal tambah kasir -->
-    <?php 
+
+    <!-- Modal ubah kasir -->
+    <!-- <div class="modal fade" id="ubahkasir" tabindex="-1" role="dialog" aria-labelledby="ubahkasirLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="ubahkasirLabel">Ubah kasir</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="form-group col-md-12">
+                            <label for="id_kasir">id kasir</label>
+                            <input type="text" class="form-control" id="id_kasir" name="id_kasir" value="">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="nama">Nama</label>
+                            <input type="text" class="form-control" id="nama" name="nama">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="username">username</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="password">password</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="level">level</label>
+                            <select class="custom-select custom-select-md" id="level" name="level">
+                                <option selected>Pilih level</option>
+                                <option value="admin">admin</option>
+                                <option value="kasir">kasir</option>
+                            </select>
+                        </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <input type="reset" value="reset" class="btn btn-secondary">
+                    <button name="submit" class="btn btn-dark">Ubah</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- akhir modal ubah kasir -->
+    <?php
     if (isset($_POST['submit'])) {
-      $id_kasir = htmlspecialchars($_POST['id_kasir']);
-      $nama = htmlspecialchars($_POST['nama']);
-      $username = htmlspecialchars($_POST['username']);
-      $password = htmlspecialchars($_POST['password']);
-      $level = htmlspecialchars($_POST['level']);
+        $id_kasir = htmlspecialchars($_POST['id_kasir']);
+        $nama =  htmlspecialchars($_POST['nama']);
+        $username = htmlspecialchars($_POST['username']);
+        $password = htmlspecialchars($_POST['password']);
+        $level = htmlspecialchars($_POST['level']);
 
-      if (empty($id_kasir) || empty($nama) || empty($username) || empty($password) || empty($level)) {
-        echo "<script>alert('mohon di isi semua');</script>";
-        echo "<script>location='datakasir.php';</script>";
-        return false;
-      }
+        if (empty($id_kasir) || empty($nama) || empty($username) || empty($password) || empty($level)) {
+            echo "<script>alert('mohon di isi semua');</script>";
+            echo "<script>location='datakasir.php';</script>";
+            return false;
+        }
 
-      $queryyy = $conn->query("INSERT INTO kasir VALUES ('$id_kasir','$username','$nama',
-              '$password','$level')");
+        $queryyy = $conn->query("INSERT INTO kasir VALUES ('$id_kasir','$username','$nama',
+                '$password','$level')");
 
-      if ($queryyy > 0) {
-        echo "<script>alert('sukses');</script>";
-        echo "<script>location='datakasir.php';</script>";
-      } else {
-        echo "<script>alert('gagal sukses');</script>";
-        echo "<script>location='datakasir.php';</script>";
-      }
+        if ($queryyy > 0) {
+            echo "<script>alert('sukses');</script>";
+            echo "<script>location='datakasir.php';</script>";
+        } else {
+            echo "<script>alert('gagal');</script>";
+            echo "<script>location='datakasir.php';</script>";
+        }
     }
 
     ?>
@@ -240,4 +295,4 @@ $newID = $char . sprintf("%2s", $noUrut);
 
 </body>
 
-</html> 
+</html>

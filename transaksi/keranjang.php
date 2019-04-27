@@ -1,11 +1,11 @@
-<?php 
+<?php
 session_start();
 include '../system/config.php';
 
 
 if (empty($_SESSION['belanja'])) {
     echo "<script>alert('keranjang kosong, silahkan belanja dahulu');</script>";
-    echo "<script>location='../user/index.php';</script>";
+    echo "<script>location='../index.php';</script>";
 }
 
 
@@ -91,19 +91,22 @@ $kasir = $_SESSION['id'];
 
 
                         ?>
-                    <tr>
-                        <td><?= $nomor; ?></td>
-                        <td><?= $pecah['gorengan']; ?></td>
-                        <td>Rp. <?= number_format($pecah['harga']); ?></td>
-                        <td><?= $jumlah; ?></td>
-                        <?php $sub = $pecah['harga'] * $jumlah; ?>
-                        <td>Rp. <?= number_format($sub); ?></td>
-                        <td>
-                            <a href="hapuskeranjang.php?id=<?= $pecah['id_gorengan']; ?>" class="btn btn-danger btn-sm">Hapus</a>
-                        </td>
-                    </tr>
-                    <?php $nomor++; ?>
-                    <?php $totalharga += $sub; ?>
+                        <tr>
+                            <td><?= $nomor; ?></td>
+                            <td><?= $pecah['gorengan']; ?></td>
+                            <td>Rp. <?= number_format($pecah['harga']); ?></td>
+                            <td><?= $jumlah; ?></td>
+                            <?php $sub = $pecah['harga'] * $jumlah; ?>
+                            <td>Rp. <?= number_format($sub); ?></td>
+
+                            <td>
+                                <a href="hapuskeranjang.php?id=<?= $pecah['id_gorengan']; ?>" class="text-center">
+                                    <i class="fas fa-fw fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php $nomor++; ?>
+                        <?php $totalharga += $sub; ?>
                     <?php endforeach; ?>
                 </tbody>
                 <tfoot>
@@ -127,7 +130,7 @@ $kasir = $_SESSION['id'];
                 </div>
 
                 <div class="form-group col-md-12">
-                    <a href="../user/index.php" class="btn btn-primary btn-block">Tambah Gorengan</a>
+                    <a href="../index.php" class="btn btn-primary btn-block">Tambah Gorengan</a>
                 </div>
 
                 <div class="form-group col-md-12">
@@ -136,7 +139,7 @@ $kasir = $_SESSION['id'];
 
 
             </form>
-            <?php 
+            <?php
             if (isset($_POST['checkout'])) {
                 $_SESSION['bayar'] = $_POST['bayar'];
                 if ($_SESSION['bayar'] < $hargatotal) {
@@ -205,4 +208,4 @@ $kasir = $_SESSION['id'];
 
 </body>
 
-</html> 
+</html>

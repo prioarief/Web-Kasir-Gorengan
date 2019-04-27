@@ -1,8 +1,8 @@
-<?php 
+<?php
 session_start();
 
 if (($_SESSION['level'] == "")) {
-  header('location:../login.php');
+    header('location:../login.php');
 }
 
 require '../system/config.php';
@@ -70,9 +70,9 @@ $newID = $char . sprintf("%03s", $noUrut);
         <!-- DataTables Example -->
         <div class="card mb-3">
             <div class="card-header">
-                <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#tambahgorengan">
-                    Tambah Gorengan
-                </button>
+                <a href="#" data-toggle="modal" data-target="#tambahgorengan" title="Tambah Gorengan" class="btn btn-dark">
+                    <i class="fas fa-fw fa-plus-square" aria-hidden="true"></i> Tambah Gorengan
+                </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -95,26 +95,33 @@ $newID = $char . sprintf("%03s", $noUrut);
                         </tfoot>
                         <tbody>
 
-                            <?php 
+                            <?php
                             $query = $conn->query("SELECT * FROM gorengan");
                             while ($result = $query->fetch_assoc()) {
 
 
-                              ?>
+                                ?>
 
-                            <tr>
-                                <td><?= $result['gorengan']; ?></td>
-                                <td><?= $result['harga']; ?></td>
-                                <td><?= $result['stok']; ?></td>
-                                <td class="text-center">
-                                    <a href="tambahstokgorengan.php?id=<?= $result['id_gorengan']; ?>" class="btn btn-primary btn-sm mb-2">Tambah Stok</a>
-                                    <a href="hapusgorengan.php?id=<?= $result['id_gorengan']; ?>" class="btn btn-danger btn-sm mb-2" onclick="return confirm ('yakin?');">Hapus</a>
-                                    <a href="ubahgorengan.php?id=<?= $result['id_gorengan']; ?>" class="btn btn-success btn-sm mb-2">Ubah</a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td><?= $result['gorengan']; ?></td>
+                                    <td><?= $result['harga']; ?></td>
+                                    <td><?= $result['stok']; ?></td>
+                                    <td class="text-center">
 
-                            <?php 
-                          } ?>
+                                        <a href="tambahstokgorengan.php?id=<?= $result['id_gorengan']; ?>" class="text-center" title="Tambah Stok">
+                                            <i class="fas fa-fw fa-plus-square" aria-hidden="true"></i>
+                                        </a> |
+                                        <a href="ubahgorengan.php?id=<?= $result['id_gorengan']; ?>" class="text-center" title="Edit">
+                                            <i class="fas fa-fw fa-edit" aria-hidden="true"></i>
+                                        </a> |
+                                        <a href="hapusgorengan.php?id=<?= $result['id_gorengan']; ?>" class="text-center" title="hapus">
+                                            <i class="fas fa-fw fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            <?php
+                        } ?>
                         </tbody>
                     </table>
                 </div>
@@ -200,30 +207,30 @@ $newID = $char . sprintf("%03s", $noUrut);
 <!-- akhir modal tambah gorengan -->
 
 </html>
-<?php 
+<?php
 if (isset($_POST['submit'])) {
-  $id_gorengan = htmlspecialchars($_POST['id_gorengan']);
-  $gorengan = htmlspecialchars($_POST['gorengan']);
-  $harga = htmlspecialchars($_POST['harga']);
-  $stok = htmlspecialchars($_POST['stok']);
+    $id_gorengan = htmlspecialchars($_POST['id_gorengan']);
+    $gorengan = htmlspecialchars($_POST['gorengan']);
+    $harga = htmlspecialchars($_POST['harga']);
+    $stok = htmlspecialchars($_POST['stok']);
 
-  if (empty($id_gorengan) || empty($gorengan) || empty($harga) || empty($stok)) {
-    echo "<script>alert('mohon di isi semua');</script>";
-    echo "<script>location='datagorengan.php';</script>";
-    return false;
-  }
+    if (empty($id_gorengan) || empty($gorengan) || empty($harga) || empty($stok)) {
+        echo "<script>alert('mohon di isi semua');</script>";
+        echo "<script>location='datagorengan.php';</script>";
+        return false;
+    }
 
 
-  $queryyy = $conn->query("INSERT INTO gorengan VALUES ('$id_gorengan','$gorengan','$harga',
+    $queryyy = $conn->query("INSERT INTO gorengan VALUES ('$id_gorengan','$gorengan','$harga',
               '$stok')");
 
-  if ($queryyy > 0) {
-    echo "<script>alert('sukses');</script>";
-    echo "<script>location='datagorengan.php';</script>";
-  } else {
-    echo "<script>alert('gagal sukses');</script>";
-    echo "<script>location='datagorengan.php';</script>";
-  }
+    if ($queryyy > 0) {
+        echo "<script>alert('sukses');</script>";
+        echo "<script>location='datagorengan.php';</script>";
+    } else {
+        echo "<script>alert('gagal sukses');</script>";
+        echo "<script>location='datagorengan.php';</script>";
+    }
 }
 
-?> 
+?>

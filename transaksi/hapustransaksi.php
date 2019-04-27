@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
 if ($_SESSION['level'] != "admin") {
     header('location: login.php');
 }
-require 'config.php';
+require '../system/config.php';
 
 $id  = $_GET["id"];
 

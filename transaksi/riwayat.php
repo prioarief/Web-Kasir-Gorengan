@@ -1,10 +1,10 @@
-<?php 
+<?php
 session_start();
 if (($_SESSION['level'] == "")) {
     header('location:../login.php');
 }
 
-require '../system/config.php';
+include '../system/config.php';
 
 
 ?>
@@ -74,7 +74,7 @@ require '../system/config.php';
                         </tfoot>
                         <tbody>
 
-                            <?php 
+                            <?php
 
                             $query = $conn->query("SELECT * FROM transaksi");
 
@@ -83,18 +83,22 @@ require '../system/config.php';
 
                                 ?>
 
-                            <tr>
-                                <td><?= $result['id_transaksi']; ?></td>
-                                <td><?= $result['id_kasir']; ?></td>
-                                <td><?= $result['tanggal']; ?></td>
-                                <td>Rp.<?= number_format($result['totalharga']); ?></td>
-                                <td class="text-center">
-                                    <a href="detailtransaksi.php?id=<?= $result['id_transaksi']; ?>" class="btn btn-primary btn-sm">Detail</a>
-                                    <a href="hapustransaksi.php?id=<?= $result['id_transaksi']; ?>" class="btn btn-danger btn-sm">Hapus</a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td><?= $result['id_transaksi']; ?></td>
+                                    <td><?= $result['id_kasir']; ?></td>
+                                    <td><?= $result['tanggal']; ?></td>
+                                    <td>Rp.<?= number_format($result['totalharga']); ?></td>
+                                    <td class="text-center">
+                                        <a href="detailtransaksi.php?id=<?= $result['id_transaksi']; ?>" class="text-center" title="Detail">
+                                            <i class="fas fa-fw fa-folder-open" aria-hidden="true"></i>
+                                        </a> |
+                                        <a href="hapustransaksi.php?id=<?= $result['id_transaksi']; ?>" class="text-center" title="hapus">
+                                            <i class="fas fa-fw fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
 
-                            <?php 
+                            <?php
                         } ?>
                         </tbody>
                     </table>
@@ -137,4 +141,4 @@ require '../system/config.php';
 
 </body>
 
-</html> 
+</html>
